@@ -1,10 +1,11 @@
+import { AppUser } from './models/app-user';
 import { UserService } from './user.service';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ActivatedRoute } from '@angular/router';
-import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
+import { Injectable } from '@angular/core';
 import 'rxjs/add/observable/of';
 
 
@@ -27,7 +28,7 @@ export class AuthService {
     this.afAuth.auth.signOut();
   }
 
-  get appUser$ () {
+  get appUser$ ():Observable<AppUser> {
     return this.user$
     .switchMap(user => {
       if (user) return this.userService.get(user.uid);
